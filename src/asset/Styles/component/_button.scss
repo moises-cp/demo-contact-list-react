@@ -1,0 +1,35 @@
+%button-active-effect {
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+%button {
+  @extend %button-active-effect;
+  font-size: 1.25rem;
+  padding: 5px 30px;
+  cursor: pointer;
+  outline: unset;
+}
+
+%button-danger {
+  @extend %button;
+  background-color: $color-danger;
+  border: 1px solid $color-danger;
+  color: $color-primary;
+}
+
+%button-cancel {
+  @extend %button;
+  background-color: $color-primary;
+  border: 1px solid $color-secondary;
+  color: $color-text-dark;
+}
+
+%button-save {
+  @extend %button;
+  background-color: $color-secondary;
+  border: 1px solid $color-secondary;
+  color: $color-primary;
+  margin-left: 30px;
+}

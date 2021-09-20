@@ -1,0 +1,53 @@
+@import "../../asset/styles/base";
+
+.Contacts {
+  background-color: $color-secondary-light;
+  grid-column: 0 / 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem 0;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  &-header__title {
+    @extend %font-h2;
+    margin: 0;
+  }
+
+  &-header__btn-add {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+  }
+
+  &-header__icon-add {
+    @extend %button-active-effect;
+    cursor: pointer;
+    max-width: 32px;
+  }
+
+  &-list {
+    padding-inline-start: 0;
+  }
+
+  &-list li {
+    @extend %font-regular;
+    cursor: pointer;
+    list-style: none;
+    padding: 0.3125rem 1rem;
+  }
+
+  &-list li.active {
+    color: $color-primary;
+    background-color: $color-secondary;
+  }
+
+  @media screen and (max-width: $viewport-tablet-md) {
+    grid-column: 1 / 5;
+  }
+}

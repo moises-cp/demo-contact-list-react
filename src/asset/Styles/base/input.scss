@@ -1,0 +1,17 @@
+input {
+  @extend %font-regular;
+  background-color: $color-secondary-light;
+  border: 1px solid $color-secondary-border;
+  box-sizing: border-box;
+  color: $color-text-regular;
+  display: block;
+  margin-top: 5px;
+  outline: $color-secondary-border;
+  padding: 8px;
+  width: 100%;
+}
+
+label {
+  @extend %font-small-md;
+  color: $color-text-regular;
+}

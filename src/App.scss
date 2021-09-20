@@ -1,0 +1,143 @@
+@import "./asset/styles/base";
+@import './asset/Styles/base/button';
+@import './asset/Styles/base/typography-util';
+@import './asset/Styles/base/input';
+@import './asset/Styles/base/icon';
+
+.App {
+  background-color: $color-primary;
+  box-shadow: 0 5px 10px -3px rgba(14, 13, 26, 0.12),
+    0 3px 16px 2px rgba(7, 48, 114, 0.12), 0 8px 12px 1px rgba(34, 0, 51, 0.04);
+  line-height: 1.5;
+  margin: auto;
+  max-height: 100vh;
+  position: relative;
+  min-height: 80vh;
+  width: 60em;
+}
+
+header {
+  background-color: $color-secondary;
+  color: $color-primary;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0.8rem 0;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 80vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+a {
+  color: $color-text-regular;
+  text-decoration: none;
+}
+
+
+
+/**
+ *  Display
+ */
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+
+/**
+ *  Input Fields
+ */
+
+
+ul.input-msg {
+  @extend %font-small-md;
+  color: $color-danger;
+  margin-block-start: 0;
+  padding-inline-start: 0;
+}
+
+ul.input-msg li {
+  list-style: none;
+}
+
+
+
+/**
+ *  Spacing
+ *
+ *  m   =   maring
+ *  y   =   top and bottom
+ *  sm  =   small
+ */
+
+
+
+.my-sm {
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+
+/**
+ *  Visibility
+ */
+.btn-inner-visible-hover button {
+  opacity: 0;
+}
+.btn-inner-visible-hover:hover button {
+  opacity: 1;
+}
+
+.color-disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+
+
+/** 
+ * Miscellaneous
+ */
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media screen and (max-width: $viewport-latptop-sm) {
+  .App {
+    height: 100vh;
+    width: 100%;
+  }
+
+  main {
+    height: calc(100vh - 62px);
+  }
+}
+
+@media screen and (max-width: $viewport-tablet-md) {
+  .App {
+    display: block;
+  }
+
+  .App button {
+    font-size: 1rem;
+    padding: .3rem 1rem;
+  }
+
+  .App button.mar-none {
+    padding: 0;
+  }
+}
