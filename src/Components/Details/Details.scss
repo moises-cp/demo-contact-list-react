@@ -1,5 +1,4 @@
-@import "../../asset/styles/base";
-@import '../../asset/Styles/base/typography.scss';
+@import "../../Assets/styles/base/base";
 
 .Details {
   background-color: $color-primary;
@@ -29,38 +28,17 @@
     color: $color-text-label;
   }
 
-  
+  &-fields__emails-add-container {
+    @extend %font-regular;
+    align-items: center;
+    color: $color-secondary;
+    cursor: pointer;
+    padding: 20px 0 0;
+  }
 
-  // &-fields input {
-  //   @extend %font-regular;
-  //   background-color: $color-secondary-light;
-  //   border: 1px solid $color-secondary-border;
-  //   box-sizing: border-box;
-  //   color: $color-text-regular;
-  //   display: block;
-  //   margin-top: 5px;
-  //   outline: $color-secondary-border;
-  //   padding: 8px;
-  //   width: 100%;
-  // }
-
-  &-fields__emails {
-    &-add-container {
-      
-      @extend %font-regular;
-
-      align-items: center;
-      color: $color-secondary;
-      cursor: pointer;
-      padding: 20px 0 0;
-      // width: max-content;
-    }
-
-    &-btn-add {
-      // @extend %button-active-effect;
-      max-width: 30px;
-      margin-right: 10px;
-    }
+  &-fields__emails-btn-add {
+    max-width: 30px;
+    margin-right: 10px;
   }
 
   &-email-item {
@@ -72,6 +50,7 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 50px;
     position: absolute;
     width: 100%;
   }
@@ -94,6 +73,10 @@
     flex-wrap: wrap;
   }
 
+  &__add-email button {
+    padding-left: 0;
+  }
+
   &__add-email-input {
     margin-right: 0.8rem;
     max-width: 47%;
@@ -103,22 +86,28 @@
     width: 100%;
   }
 
-  
+  @media screen and (max-width: $viewport-lg-sm) {
+    &-fields__emails {
+      margin-bottom: 2rem;
+    }
 
-  @media screen and (max-width: $viewport-latptop-sm) {
-
+    &-controllers {
+      bottom: unset;
+      position: relative;
+    }
   }
 
-  @media screen and (max-width: $viewport-tablet-lg) {
+
+  @media screen and (max-width: $viewport-md) {
     &-fields {
       grid-template-columns: 1fr;    
     }
   }
 
-  @media screen and (max-width: $viewport-tablet-md) {
+  @media screen and (max-width: $viewport-md-md) {
     grid-column: 1 / 5;
     height: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem;
     position: absolute;
     top: 0;
     transition: left 1s ease-in-out;
@@ -144,7 +133,26 @@
     }
   }  
 
-  @media screen and (max-width: $viewport-mobile-md) {
+  @media screen and (max-width: $viewport-sm-md) {
     padding: 1rem 1.2rem;
+
+    &__add-email-input {
+      max-width: 70%;
+    }
+  }
+
+  @media screen and (max-width: $viewport-sm-sm) {
+    &-controllers {
+      display: block;
+    }
+
+    &-controllers button { 
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    &-controllers__btn-save { 
+      margin-left: 0;
+    }
   }
 }
