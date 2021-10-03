@@ -1,7 +1,7 @@
 import React, { FunctionComponent, FormEvent, useEffect, useState } from "react";
 import "./Details.scss";
-import IconAdd from "../../asset/img/icon/add-icon.svg";
-import IconDeleteInputField from '../../asset/img/icon/icon-delete.svg';
+import IconAdd from "../../Assets/img/icon/add-icon.svg";
+import IconDeleteInputField from '../../Assets/img/icon/icon-delete.svg';
 import { Contact } from '../../types';
 import { fieldsConfig } from '../../config';
 
@@ -132,6 +132,7 @@ const Details: FunctionComponent<Props> = ({
   const btnCancelAndDeleteDisabledStyles = selectedContact?.firstName ? '' : 'color-disabled';
   const StyleAvailabilitydisabledButton = isBtnSaveDisabled ? 'color-disabled' : '';
   const showDetails = isClosed ? '' : 'Details__mobile-active';
+  const isWithinEmailTotalLimit = selectedContact && selectedContact.emails.length < 3;
 
   return (
     <div className={`Details ${showDetails}`}>
@@ -194,7 +195,7 @@ const Details: FunctionComponent<Props> = ({
             {selectedContact?.emails && selectedContact.emails.map((email, index) => {
               return(
                 <div 
-                  className='align-items-center btn-inner-visible-hover'
+                  className='align-items-center btn-inner-visible-hover mt-md-1 sp-md-between'
                   key={index} >
                   <a href={`mailto:${email}`}>{email} </a>
                   <button 
@@ -217,16 +218,18 @@ const Details: FunctionComponent<Props> = ({
                   type="email" />
               }   
 
-              <button 
-                className='btn-transparent'
-                disabled={isCreatingEmail && !isEmailValid}
-                onClick={toogleEmailInputField}>
-                <img src={IconAdd} 
-                  alt="Add Email"
-                  className={`Details-fields__emails-btn-add icon ${styleClassIconAddEmail}`} />
-              </button>
+              {isWithinEmailTotalLimit && 
+                <button 
+                  className='btn-transparent'
+                  disabled={isCreatingEmail && !isEmailValid}
+                  onClick={toogleEmailInputField}>
+                  <img src={IconAdd} 
+                    alt="Add Email"
+                    className={`Details-fields__emails-btn-add icon ${styleClassIconAddEmail}`} />
+                </button>
+              }              
 
-              {isCreatingEmail && 
+              {isCreatingEmail &&
                 <img 
                 alt='Delete Email'
                 className='icon icon-md'
@@ -234,7 +237,7 @@ const Details: FunctionComponent<Props> = ({
                 src={IconDeleteInputField} />
               }            
                 
-              {!isCreatingEmail &&
+              {!isCreatingEmail && isWithinEmailTotalLimit &&
                 <div>
                   <span onClick={toogleEmailInputField}>Add Email</span>
                 </div>

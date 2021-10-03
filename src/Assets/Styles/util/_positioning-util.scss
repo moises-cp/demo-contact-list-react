@@ -1,0 +1,11 @@
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: $viewport-md) {
+  .sp-md-between {
+    display: flex;
+    justify-content: space-between;
+  }
+}

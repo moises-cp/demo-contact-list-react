@@ -1,4 +1,4 @@
-@import "../../asset/styles/base";
+@import "../../Assets/styles/base/base";
 
 .Contacts {
   background-color: $color-secondary-light;
@@ -47,7 +47,7 @@
     background-color: $color-secondary;
   }
 
-  @media screen and (max-width: $viewport-tablet-md) {
+  @media screen and (max-width: $viewport-md-md) {
     grid-column: 1 / 5;
   }
 }

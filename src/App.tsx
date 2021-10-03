@@ -230,7 +230,7 @@ const App = () => {
     <div className="App">
       <header>
         <h1>
-          Moisés Contacts Demo App
+          Moisés Contacts Demo
         </h1>        
       </header>
       <main>
