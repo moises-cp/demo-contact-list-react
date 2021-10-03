@@ -1,3 +1,4 @@
+export const getObjectCopy = (obj: object): any => JSON.parse(JSON.stringify(obj));
 
 export const getUniqueId = (): number => {
   const min = 10;

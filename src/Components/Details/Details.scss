@@ -28,6 +28,10 @@
     color: $color-text-label;
   }
 
+  &-fields__emails {
+    height: calc(100% - 125px);
+  }
+
   &-fields__emails-add-container {
     @extend %font-regular;
     align-items: center;
@@ -46,12 +50,9 @@
   }
 
   &-controllers {
-    bottom: 25px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
-    position: absolute;
     width: 100%;
   }
 
@@ -87,10 +88,6 @@
   }
 
   @media screen and (max-width: $viewport-lg-sm) {
-    &-fields__emails {
-      margin-bottom: 2rem;
-    }
-
     &-controllers {
       bottom: unset;
       position: relative;
@@ -99,18 +96,28 @@
 
 
   @media screen and (max-width: $viewport-md) {
+    margin-bottom: 50px;
+
     &-fields {
       grid-template-columns: 1fr;    
+    }
+
+    &-fields__emails {
+      height: auto;
+    }
+
+    &-controllers {
+      margin-bottom: 50px;
     }
   }
 
   @media screen and (max-width: $viewport-md-md) {
     grid-column: 1 / 5;
-    height: 100%;
+    height: auto;
     padding: 1rem;
     position: absolute;
     top: 0;
-    transition: left 1s ease-in-out;
+    transition: left .7s ease-in-out;
     left: 102%;
     width: 100%;
 
@@ -122,23 +129,21 @@
       display: block;
     }
 
-    &-controllers {
-      bottom: 0;
-      margin-top: 1rem;
-      width: 100%;
-    }
-
     &-controllers__btn-save {
       margin-left: 1rem;
     }
+
+    
   }  
+
+  @media screen and (max-width: $viewport-sm) {
+    &__add-email-input {
+      max-width: calc(100% - 105px);
+    }
+  }
 
   @media screen and (max-width: $viewport-sm-md) {
     padding: 1rem 1.2rem;
-
-    &__add-email-input {
-      max-width: 70%;
-    }
   }
 
   @media screen and (max-width: $viewport-sm-sm) {

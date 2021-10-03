@@ -5,8 +5,9 @@ import IconAddContact from "../../Assets/img/icon/add-icon.svg";
 import { ContactList, Contact } from '../../types';
 
 interface Props {
-  contacts: ContactList;
+  contacts: ContactList | null;
   onClickClearDetails: () => void;
+  onClickOpenDetails: () => void;
   selectedContactId?: number;
   switchSelectedContact: (contact: Contact, index: number) => void;
 }
@@ -14,9 +15,15 @@ interface Props {
 const Contacts: FunctionComponent<Props> = ({
   contacts, 
   onClickClearDetails,
+  onClickOpenDetails,
   selectedContactId,
   switchSelectedContact
 }) => {
+
+  const onClickAddNewContact = (): void => {
+    onClickClearDetails();
+    onClickOpenDetails();
+  }
 
   return (
     <div className="Contacts">
@@ -25,7 +32,7 @@ const Contacts: FunctionComponent<Props> = ({
         <h2 className="Contacts-header__title">Contacts</h2>
         <button 
           className='Contacts-header__btn-add'
-          onClick={onClickClearDetails}>
+          onClick={onClickAddNewContact}>
           <img 
             alt="Add Contact" 
             className="Contacts-header__icon-add"
@@ -34,7 +41,7 @@ const Contacts: FunctionComponent<Props> = ({
       </div>
 
       <ul className='Contacts-list'>
-        {contacts.length && contacts.map((contact, index) => {
+        {contacts && contacts.length && contacts.map((contact, index) => {
           const className = contact.id === selectedContactId ? 'active' : '';
 
           return(

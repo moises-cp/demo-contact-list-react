@@ -8,6 +8,7 @@ import { fieldsConfig } from '../../config';
 interface Props {
   hasErrors: boolean;
   isEdited: boolean;
+  isOpenDetails: boolean;
   selectedContact: Contact | null;
   onClickCancel: () => void;
   onClickDeleteContact: () => void;
@@ -21,6 +22,7 @@ interface Props {
 const Details: FunctionComponent<Props> = ({
   hasErrors,
   isEdited,
+  isOpenDetails,
   onClickAddEmail,
   onClickCancel,
   onClickDeleteContact,
@@ -35,12 +37,10 @@ const Details: FunctionComponent<Props> = ({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [isCreatingEmail, setIsCreatingEmail] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string | null>(null);
-  const [isClosed, setIsClosed] = useState<boolean>(false);
 
   useEffect(
     () => {
-      setIsCreatingEmail(false);
-      setIsClosed(false);
+      setIsCreatingEmail(false);      
     },
     [selectedContact],
   );
@@ -119,27 +119,22 @@ const Details: FunctionComponent<Props> = ({
     onClickCancel();
   }
 
-  const closeDetails = (): void => {
-    setIsClosed(true);
-  }
-
-
   /**
-   * Computer Variables
+   * Computed Variables
    */
   const isBtnSaveDisabled = (isEdited && hasErrors) || (!isEdited && !hasErrors);
   const styleClassIconAddEmail = isCreatingEmail && !isEmailValid ? 'color-disabled' : '';
   const btnCancelAndDeleteDisabledStyles = selectedContact?.firstName ? '' : 'color-disabled';
   const StyleAvailabilitydisabledButton = isBtnSaveDisabled ? 'color-disabled' : '';
-  const showDetails = isClosed ? '' : 'Details__mobile-active';
-  const isWithinEmailTotalLimit = selectedContact && selectedContact.emails.length < 3;
+  const showDetails = isOpenDetails ? 'Details__mobile-active' : '';
+  const isWithinEmailTotalLimit = selectedContact && selectedContact.emails.length < 5;
 
   return (
     <div className={`Details ${showDetails}`}>
       <div>     
         <button 
           className='Details__btn-go-back btn-clear mar-none text-color-subtle' 
-          onClick={closeDetails}>
+          onClick={onCancel}>
           &larr; Go Back
         </button>
         <div className="Details-fields">
