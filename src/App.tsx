@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Contacts from "./Components/Contacts/Contacts";
 import Details from "./Components/Details/Details";
 import ToastNotification from './Components/ToastNotification/ToastNotification';
+import AlertNotification from './Components/AlertNotification/AlertNotification';
 import "./App.scss";
-import { ContactList, Contact } from './types';
+import { ContactList, Contact, NotificationType } from './types';
 import { getUniqueId } from "./util";
 import { getObjectCopy } from "./util";
 import { fieldsConfig } from './config';
@@ -86,10 +87,14 @@ const App = () => {
   ]);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(getObjectCopy(emptyContactTemplate));
   const [selectedContactIndex, setSelectedContactIndex] = useState<number | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);  
+  const [toastNotf, setToastMessage] = useState<NotificationType | null>(null);  
   const [isEdited, setIsEdited] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [isOpenDetails, setIsOpenDetails] = useState<boolean>(false);
+  // Alert Notification Componenet  
+  const [alertIsVisible, setAlertIsVisible] = useState<boolean>(false);
+  const [alertQuestion, setAlertQuestion] = useState<string>('');
+  const [alertProceedFunctions, setAlertProceedFunctions] = useState<any>();
 
   /**
    * Contact list
@@ -118,7 +123,18 @@ const App = () => {
     }    
   }
 
-  const deleteSelectedContact = (): void => {    
+  const setAlert = (questionForUser: string, func: Function): any => {
+    setAlertProceedFunctions({
+      closeModal: setAlertIsVisible(false),
+      functionToExecute: func}
+    );
+    setAlertQuestion(questionForUser);
+    setAlertIsVisible(true);
+  }
+
+  const deleteSelectedContact = () => {
+    const fullName = `${selectedContact?.firstName} ${selectedContact?.lastName}`;
+
     if(contacts && contacts.length === 1) {
       setcontacts(null);
       clearDetails();
@@ -130,8 +146,19 @@ const App = () => {
       newContactList.splice(selectedContactIndex, 1);
       setcontacts(newContactList);
       setSelectedContact(null);
-      setToastMessage('Contact has been deleted.');
+      setToastMessage({
+          id: getUniqueId(), message: 
+          `${fullName} has been removed from your contacts.`
+      });
     }
+  }
+
+  const onClickDeleteSelectedContact = (): void => {   
+    const contactName = `${selectedContact?.firstName} ${selectedContact?.lastName}`;  
+    setAlert(
+      `Are you sure you want to remove ${contactName} from your contacts?`,
+      deleteSelectedContact
+    );
   }
 
   const removeSelectedContact = (): void => {
@@ -158,7 +185,7 @@ const App = () => {
       return;
     }
 
-    setToastMessage('Contact was not saved.');
+    updateToastMessage('Contact was not saved.');
   } 
 
   /**
@@ -183,7 +210,7 @@ const App = () => {
     contact.emails = contact.emails && contact.emails.filter(email => email !== emailToRemove);
     setSelectedContact(contact);
     setIsEdited(true);
-    setToastMessage(`${emailToRemove} has been removed temporarily. To make this a permanent change, click on Save.`);
+    updateToastMessage(`${emailToRemove} has been removed temporarily. To make this a permanent change, click on Save.`);
   }
 
   const handleFirstNameUpdate = (firstName: string): void => {
@@ -255,14 +282,14 @@ const App = () => {
     contactList.push(newContact);
     updateContactList(contactList);    
     switchSelectedContact(newContact, index)
-    setToastMessage(`${newContact.firstName} ${newContact.lastName} has been saved.`);
+    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been saved.`);
   }
 
   const addNewContactToEmptyList = (newContact: Contact):void => {
     newContact.id = getUniqueId();
     updateContactList([newContact]);
     switchSelectedContact(newContact, 0);
-    setToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
+    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
   }
 
   const updateExistingContact = (newContact: Contact): void => {
@@ -271,8 +298,20 @@ const App = () => {
     if(selectedContactIndex) {
       contactList[selectedContactIndex] = {...newContact};
       updateContactList(contactList);
-      setToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
+      updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
     }
+  }
+
+  const updateToastMessage = (message: string): void => {
+    setToastMessage({
+      id: getUniqueId(),
+      message: message
+    });
+  }
+
+  // Alert Notifications
+  const closeAlert = () => {
+    setAlertIsVisible(false);
   }
 
   return (
@@ -299,7 +338,7 @@ const App = () => {
           isOpenDetails={isOpenDetails}
           onClickAddEmail={addEmailToContact}
           onClickCancel={clearDetails}
-          onClickDeleteContact={deleteSelectedContact}
+          onClickDeleteContact={onClickDeleteSelectedContact}
           onClickDeleteEmail={deleteContactEmail} 
           saveContact={saveContact}
           selectedContact={selectedContact}
@@ -307,8 +346,16 @@ const App = () => {
           updateLastName={handleLastNameUpdate}
           />
         <ToastNotification 
-          message={toastMessage}
+          id={toastNotf ? toastNotf.id : 0}
+          message={toastNotf ? toastNotf.message : ''}
         />
+        {alertIsVisible &&
+          <AlertNotification 
+            closeAlert={closeAlert}
+            questionForUser={alertQuestion}
+            proceedFuntions={alertProceedFunctions}
+          />
+        }
       </main>
     </div>
   );

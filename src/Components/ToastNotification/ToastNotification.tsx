@@ -1,29 +1,27 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import "./ToastNotification.scss";
+import { NotificationType } from '../../types';
 
-interface Props {
-  message: string | null;
-}
-
-const ToastMessage: FunctionComponent<Props> = ({message}) => {
+const ToastMessage: FunctionComponent<NotificationType> = ({ id, message }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [toastMessages, setToastMessages] = useState<string[]>([]);
 
   useEffect(() => {
-    if(message) {        
-      setTimeout(() => {
+    if(id && message) {        
+      const timeoutId = setTimeout(() => {
         setToastMessages(listOfMessages => [...listOfMessages ].filter((message, index) => {
           if(listOfMessages.length === 1) {
             setIsActive(false);
+            clearTimeout(timeoutId);
           }
           return index < listOfMessages.length - 1;
         }));
-      },10000);      
+      },10000); 
 
       setToastMessages(listOfMessages => [message, ...listOfMessages ]);
       setIsActive(true);
     } 
-  },[message]);
+  },[id, message]);
 
   const closeToast = (): void => {
     setIsActive(false);

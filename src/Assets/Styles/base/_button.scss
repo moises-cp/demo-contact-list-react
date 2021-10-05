@@ -29,12 +29,11 @@
   color: $color-text-dark;
 }
 
-%button-save {
+%button-regular {
   @extend %button;
   background-color: $color-secondary;
   border: 1px solid $color-secondary;
   color: $color-primary;
-  margin-left: 30px;
 }
 
 @media screen and (max-width: $viewport-md) {

@@ -6,3 +6,8 @@ export interface Contact {
 }
 
 export type ContactList = Contact[];
+
+export interface NotificationType {
+  id: number,
+  message: string;
+}

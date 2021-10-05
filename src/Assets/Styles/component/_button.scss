@@ -1,6 +1,5 @@
 @import '../base/viewport';
 
-
 /**
  *  Buttons
  */
@@ -29,6 +28,14 @@ button.btn-clear {
 }
 .btn-inner-visible-hover:hover button {
   opacity: 1;
+}
+
+.btn-regular {
+  @extend %button-regular;
+}
+
+.btn-danger {
+  @extend %button-danger;
 }
 
 @media screen and (max-width: $viewport-md-md) {
