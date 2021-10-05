@@ -14,6 +14,9 @@
 @import './Assets/Styles/util/typography-util';
 @import './Assets/Styles/util/visibility-util';
 
+* {
+  box-sizing: border-box;
+}
 
 .App {
   background-color: $color-primary;

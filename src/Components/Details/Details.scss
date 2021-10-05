@@ -65,7 +65,7 @@
   }
 
   &-controllers__btn-save {
-    @extend %button-save;
+    @extend %button-regular;
   }
 
   &__add-email {
@@ -104,10 +104,11 @@
 
     &-fields__emails {
       height: auto;
+      margin-bottom: 65px;
     }
 
     &-controllers {
-      margin-bottom: 50px;
+      margin-bottom: 150px;
     }
   }
 
@@ -131,33 +132,24 @@
 
     &-controllers__btn-save {
       margin-left: 1rem;
-    }
-
-    
+    }    
   }  
 
   @media screen and (max-width: $viewport-sm) {
     &__add-email-input {
       max-width: calc(100% - 105px);
     }
-  }
 
-  @media screen and (max-width: $viewport-sm-md) {
-    padding: 1rem 1.2rem;
+    &-controllers button { 
+      padding: 1vw .5vw;
+    }
+
   }
 
   @media screen and (max-width: $viewport-sm-sm) {
-    &-controllers {
-      display: block;
-    }
-
     &-controllers button { 
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-
-    &-controllers__btn-save { 
-      margin-left: 0;
+      font-size: 5.5vw;
+      width: 24vw;
     }
   }
 }
