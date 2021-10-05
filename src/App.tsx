@@ -5,21 +5,24 @@ import ToastNotification from './Components/ToastNotification/ToastNotification'
 import "./App.scss";
 import { ContactList, Contact } from './types';
 import { getUniqueId } from "./util";
+import { getObjectCopy } from "./util";
 import { fieldsConfig } from './config';
 
-const contactTemplate = {
+import IconPeople from './Assets/img/icon/icon-people-contacts50x43-90-min.jpg';
+
+const emptyContactTemplate = {
   id: getUniqueId(),
   firstName: '',
   lastName: '',
   emails: []
-};
+}
 
 const App = () => {
 
   /**
    * State
    */
-  const [contacts, setcontacts] = useState<ContactList>([
+  const [contacts, setcontacts] = useState<ContactList | null>([
     {
       id: getUniqueId(),
       firstName: 'Jessica',
@@ -81,16 +84,12 @@ const App = () => {
       ]
     }
   ]);
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(contactTemplate);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(getObjectCopy(emptyContactTemplate));
   const [selectedContactIndex, setSelectedContactIndex] = useState<number | null>(null);
-
-  
-  // const [isEditingValid, setIsEditingValid] = useState<boolean>(true);
-
   const [toastMessage, setToastMessage] = useState<string | null>(null);  
   const [isEdited, setIsEdited] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
-  // const [showDetailsOnMobile, setShowDetailsOnMobile] = useState<boolean>(false);
+  const [isOpenDetails, setIsOpenDetails] = useState<boolean>(false);
 
   /**
    * Contact list
@@ -99,6 +98,7 @@ const App = () => {
     setSelectedContact(contact);
     setSelectedContactIndex(index);
     setIsEdited(false);
+    setIsOpenDetails(true);
   }
 
   
@@ -106,42 +106,60 @@ const App = () => {
    * Handle Contact Detail Buttons
    */
   const clearDetails = () => {
-    setSelectedContact(contactTemplate);
-    setSelectedContactIndex(null);
-    setIsEdited(false);
+    setIsOpenDetails(false);    
+    const tableMdViewportWidth = 767;
+
+    if(window.innerWidth <= tableMdViewportWidth) {
+      setTimeout(() => {      
+        removeSelectedContact();
+      }, 700);
+    } else {
+      removeSelectedContact();
+    }    
   }
 
-  const deleteSelectedContact = (): void => {
-    if(selectedContact) {
-      const newContactList = contacts.filter(contact => contact.id !== selectedContact?.id);
+  const deleteSelectedContact = (): void => {    
+    if(contacts && contacts.length === 1) {
+      setcontacts(null);
+      clearDetails();
+      return;
+    }
+
+    if(contacts && selectedContact && selectedContactIndex !== null) {
+      const newContactList = [ ...contacts ];
+      newContactList.splice(selectedContactIndex, 1);
       setcontacts(newContactList);
       setSelectedContact(null);
       setToastMessage('Contact has been deleted.');
     }
   }
 
+  const removeSelectedContact = (): void => {
+    setSelectedContact(getObjectCopy(emptyContactTemplate));
+    setSelectedContactIndex(null);
+    setIsEdited(false); 
+  }
+
   const saveContact = (): void => {
-    const contactList = [...contacts];
     const newContact = { ...selectedContact } as Contact; 
-    const toastMessageSuccessful = 'Contact has been saved.';
+
+    if(!contacts && isEdited && !hasError) {
+      addNewContactToEmptyList(newContact);
+      return;
+    }    
 
     if(selectedContactIndex !== null && isEdited && !hasError) {
-      contactList[selectedContactIndex] = {...newContact};
-      updateContactList(contactList);
-      setToastMessage(toastMessageSuccessful);
+      updateExistingContact(newContact);
       return;
     }
 
     if(isEdited && !hasError) {
-      contactList.push(newContact);
-      updateContactList(contactList);
-      setToastMessage(toastMessageSuccessful);
+      addNewContactToPopulatedList(newContact);
       return;
     }
 
     setToastMessage('Contact was not saved.');
   } 
-
 
   /**
    * Handle Input Fields Updates
@@ -188,6 +206,10 @@ const App = () => {
   /**
    * Helpers Functions
    */
+  const onClickOpenDetails = (): void => {
+    setIsOpenDetails(true);
+  }
+  
   const updateContactList = (contactList: ContactList): void => {
     setcontacts(contactList);
     setIsEdited(false);
@@ -195,7 +217,7 @@ const App = () => {
 
   const updateEditingStatus = (contact: Contact): void => {
     console.log('selectedContactIndex: ', selectedContactIndex);
-    if(selectedContactIndex !== null) {
+    if(contacts && selectedContactIndex !== null) {
       JSON.stringify(contact).toLowerCase() === JSON.stringify(contacts[selectedContactIndex]).toLowerCase()
       ? setIsEdited(false)
       : setIsEdited(true);
@@ -226,23 +248,55 @@ const App = () => {
     setHasError(hasErrors);
   }
 
+  // Create/Update Contact
+  const addNewContactToPopulatedList = (newContact: Contact):void => {
+    const contactList: Contact[] = contacts ? [...contacts] : [];
+    const index = contacts ? contacts.length : 0;
+    contactList.push(newContact);
+    updateContactList(contactList);    
+    switchSelectedContact(newContact, index)
+    setToastMessage(`${newContact.firstName} ${newContact.lastName} has been saved.`);
+  }
+
+  const addNewContactToEmptyList = (newContact: Contact):void => {
+    newContact.id = getUniqueId();
+    updateContactList([newContact]);
+    switchSelectedContact(newContact, 0);
+    setToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
+  }
+
+  const updateExistingContact = (newContact: Contact): void => {
+    const contactList: Contact[] = contacts ? [...contacts] : [];
+
+    if(selectedContactIndex) {
+      contactList[selectedContactIndex] = {...newContact};
+      updateContactList(contactList);
+      setToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
+    }
+  }
+
   return (
     <div className="App">
       <header>
         <h1>
-          Moisés Contacts Demo
+          <div>
+            <img src={IconPeople} alt='Icon of People' />
+            Moisés Contacts
+          </div>          
         </h1>        
       </header>
       <main>
         <Contacts 
           contacts={contacts} 
           onClickClearDetails={clearDetails}
+          onClickOpenDetails={onClickOpenDetails}
           selectedContactId={selectedContact?.id}
           switchSelectedContact={switchSelectedContact}
         />
         <Details  
           hasErrors={hasError}
           isEdited={isEdited}
+          isOpenDetails={isOpenDetails}
           onClickAddEmail={addEmailToContact}
           onClickCancel={clearDetails}
           onClickDeleteContact={deleteSelectedContact}
