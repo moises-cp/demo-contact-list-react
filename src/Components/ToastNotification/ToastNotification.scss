@@ -45,7 +45,18 @@
     width: 80%;
   }
 
-  @media screen and (max-width: $viewport-sm-md) {
-    width: 95%;
+  @media screen and (max-width: $viewport-sm) {
+    border: 1px solid $color-primary;
+    border-top: 1px solid $color-secondary;
+    padding: 0;
+    width: 100%;
+
+    &.active {
+      bottom: 0%;
+    }
+
+    & > ul {
+      margin: 5px 0;
+    }
   }
 }
