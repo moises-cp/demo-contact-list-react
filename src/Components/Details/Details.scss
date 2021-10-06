@@ -66,6 +66,7 @@
 
   &-controllers__btn-save {
     @extend %button-regular;
+    margin-left: 2rem;
   }
 
   &__add-email {
@@ -110,6 +111,10 @@
     &-controllers {
       margin-bottom: 150px;
     }
+
+    &-controllers button {
+      padding: 1vw 1.2rem;
+    }
   }
 
   @media screen and (max-width: $viewport-md-md) {
@@ -139,17 +144,13 @@
     &__add-email-input {
       max-width: calc(100% - 105px);
     }
-
-    &-controllers button { 
-      padding: 1vw .5vw;
-    }
-
   }
 
   @media screen and (max-width: $viewport-sm-sm) {
     &-controllers button { 
       font-size: 5.5vw;
       width: 24vw;
+      padding: 1vw;
     }
   }
 }

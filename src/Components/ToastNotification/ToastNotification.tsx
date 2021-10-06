@@ -16,27 +16,17 @@ const ToastMessage: FunctionComponent<NotificationType> = ({ id, message }) => {
           }
           return index < listOfMessages.length - 1;
         }));
-      },10000); 
+      },5000); 
 
       setToastMessages(listOfMessages => [message, ...listOfMessages ]);
       setIsActive(true);
     } 
   },[id, message]);
 
-  const closeToast = (): void => {
-    setIsActive(false);
-    setToastMessages([]);
-  }
-
   const activeStyle = isActive ? 'active' : '';
 
   return (
     <div className={`toast-msg ${activeStyle}`}> 
-      <div
-        className='close' 
-        onClick={closeToast}>
-          <span>X</span>
-      </div>
       <ul>
         {toastMessages.map((msg, index) => {
           return(

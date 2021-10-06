@@ -41,7 +41,7 @@ const Contacts: FunctionComponent<Props> = ({
       </div>
 
       <ul className='Contacts-list'>
-        {contacts && contacts.length && contacts.map((contact, index) => {
+        {contacts && contacts.length > 0 && contacts.map((contact, index) => {
           const className = contact.id === selectedContactId ? 'active' : '';
 
           return(
