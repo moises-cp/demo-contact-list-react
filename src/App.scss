@@ -82,13 +82,10 @@ a {
   .App {
     display: block;
   }
+}
 
-  // .App button {
-  //   font-size: 1rem;
-  //   padding: .3rem 1rem;
-  // }
-
-  // .App button.mar-none {
-  //   padding: 0;
-  // }
+@media screen and (max-width: $viewport-sm) {
+  .App {
+    padding-bottom: 200px;
+  }
 }
