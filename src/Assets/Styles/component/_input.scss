@@ -18,9 +18,13 @@ label {
 
 ul.input-msg {
   @extend %font-small-md;
-  color: $color-danger;
+  color: $color-text-regular;
   margin-block-start: 0;
   padding-inline-start: 0;
+  border: 1px solid $color-danger;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 ul.input-msg li {

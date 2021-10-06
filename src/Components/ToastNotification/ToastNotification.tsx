@@ -8,15 +8,14 @@ const ToastMessage: FunctionComponent<NotificationType> = ({ id, message }) => {
 
   useEffect(() => {
     if(id && message) {        
-      const timeoutId = setTimeout(() => {
+      setTimeout(() => {
         setToastMessages(listOfMessages => [...listOfMessages ].filter((message, index) => {
           if(listOfMessages.length === 1) {
             setIsActive(false);
-            clearTimeout(timeoutId);
           }
           return index < listOfMessages.length - 1;
         }));
-      },5000); 
+      },7000); 
 
       setToastMessages(listOfMessages => [message, ...listOfMessages ]);
       setIsActive(true);

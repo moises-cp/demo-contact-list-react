@@ -6,6 +6,7 @@ import { ContactList, Contact } from '../../types';
 
 interface Props {
   contacts: ContactList | null;
+  hasErrors: boolean;
   onClickClearDetails: () => void;
   onClickOpenDetails: () => void;
   selectedContactId?: number;
@@ -14,6 +15,7 @@ interface Props {
 
 const Contacts: FunctionComponent<Props> = ({
   contacts, 
+  hasErrors,
   onClickClearDetails,
   onClickOpenDetails,
   selectedContactId,
@@ -42,11 +44,12 @@ const Contacts: FunctionComponent<Props> = ({
 
       <ul className='Contacts-list'>
         {contacts && contacts.length > 0 && contacts.map((contact, index) => {
-          const className = contact.id === selectedContactId ? 'active' : '';
+          const styleActive = contact.id === selectedContactId && !hasErrors ? 'active' : '';
+          const styleHasError = contact.id === selectedContactId && hasErrors ? 'color-bg-danger color-txt-primary' : '';
 
           return(
             <li 
-              className={className}
+              className={`${styleActive} ${styleHasError}`}
               key={contact.id}
               onClick={() => switchSelectedContact(contact, index)} >
               {contact.firstName} {contact.lastName}

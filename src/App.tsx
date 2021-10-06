@@ -5,11 +5,11 @@ import ToastNotification from './Components/ToastNotification/ToastNotification'
 import AlertNotification from './Components/AlertNotification/AlertNotification';
 import "./App.scss";
 import { ContactList, Contact, NotificationType } from './types';
-import { getUniqueId } from "./util";
-import { getObjectCopy } from "./util";
+import { toUpperFirstLetter, getObjectCopy, getUniqueId, sortObjectByFirstNameAsc } from "./util";
 import { fieldsConfig } from './config';
 
-import IconPeople from './Assets/img/icon/icon-people-contacts50x43-90-min.jpg';
+import IconPeople from './Assets/img/icon/people-icon-contacts-alpha-50x36.png';
+import { defaultContactList } from './Data/defaultContacts';
 
 const emptyContactTemplate = {
   id: getUniqueId(),
@@ -19,75 +19,14 @@ const emptyContactTemplate = {
 }
 
 const detailsSlideDelay = 700;
+const viewportWidthMobile = 767;
 
 const App = () => {
 
   /**
    * State
    */
-  // Contact / Contacts
-  const [contacts, setcontacts] = useState<ContactList | null>([
-    {
-      id: getUniqueId(),
-      firstName: 'Jessica',
-      lastName: 'Alba',
-      emails: [
-        'alba@jessica.com',
-        'alba2@jessica2.com',
-      ]
-    },
-    {
-      id: getUniqueId(),
-      firstName: 'Will',
-      lastName: 'Smith',
-      emails: [
-        'smith@will.com',
-        'smith2@will2.com',
-      ]
-    },
-    {
-      id: getUniqueId(),
-      firstName: 'Jennifer',
-      lastName: 'Aniston',
-      emails: [
-         'aniston@jennifer.com',
-         'aniston2@jennifer2.com',
-         'aniston3@jennifer3.com',
-      ]
-    },
-    {
-      id: getUniqueId(),
-      firstName: 'Benicio',
-      lastName: 'Del Toro',
-      emails: [
-         'deltoro@Benicio .com',
-         'deltoro2@Benicio2 .com',
-         'deltoro3@Benicio3.com',
-      ]
-    },
-    {
-      id: getUniqueId(),
-      firstName: 'Rosario',
-      lastName: 'Dawson',
-      emails: [
-         'dawson@rosario.com',
-         'dawson2@rosario2.com',
-         'dawson3@rosario3.com',
-      ]
-    },
-    {
-      id: getUniqueId(),
-      firstName: 'Luis',
-      lastName: 'Gúzman',
-      emails: [
-         'guzman@luis.com',
-         'guzman2@luis2.com',
-         'guzman3@luis3.com',
-         'guzman4@luis4.com',
-         'guzman5@luis5.com',
-      ]
-    }
-  ]);
+  const [contacts, setcontacts] = useState<ContactList | null>(sortObjectByFirstNameAsc(defaultContactList));
   const [selectedContact, setSelectedContact] = useState<Contact | null>(getObjectCopy(emptyContactTemplate));
   const [selectedContactIndex, setSelectedContactIndex] = useState<number | null>(null);
   // Toast Notification
@@ -102,6 +41,7 @@ const App = () => {
   const [alertQuestion, setAlertQuestion] = useState<string>('');
   const [alertProceedFunctions, setAlertProceedFunctions] = useState<any>();
 
+
   /**
    * Contact list
    */
@@ -111,16 +51,14 @@ const App = () => {
     setIsEdited(false);
     setIsOpenDetails(true);
   }
-
   
   /**
    * Handle Contact Detail Buttons
    */
   const clearDetails = () => {
     setIsOpenDetails(false);    
-    const tableMdViewportWidth = 767;
 
-    if(window.innerWidth <= tableMdViewportWidth) {
+    if(window.innerWidth <= viewportWidthMobile) {
       setTimeout(() => {      
         removeSelectedContact();
       }, detailsSlideDelay);
@@ -141,27 +79,29 @@ const App = () => {
   const deleteSelectedContact = () => {
     const fullName = `${selectedContact?.firstName} ${selectedContact?.lastName}`;
 
-    if(contacts && contacts.length === 1) {
-      setIsOpenDetails(false);
-      setTimeout(() => {  
-        setcontacts(null);
-        clearDetails();
-      }, detailsSlideDelay);      
-      return;
-    }
-
     if(contacts && selectedContact && selectedContactIndex !== null) {
       setIsOpenDetails(false);
-      setTimeout(() => {
+      if(window.innerWidth <= viewportWidthMobile) {
+        setTimeout(() => {
+          const newContactList = [ ...contacts ];
+          newContactList.splice(selectedContactIndex, 1);
+          setcontacts(newContactList);  
+          setSelectedContact(null);
+          setToastNotification({
+              id: getUniqueId(), 
+              message: `${fullName} has been removed from your contacts.`
+          });
+        }, detailsSlideDelay);
+      } else {
         const newContactList = [ ...contacts ];
         newContactList.splice(selectedContactIndex, 1);
         setcontacts(newContactList);    
         setSelectedContact(null);
         setToastNotification({
-            id: getUniqueId(), message: 
-            `${fullName} has been removed from your contacts.`
+            id: getUniqueId(), 
+            message: `${fullName} has been removed from your contacts.`
         });
-      }, detailsSlideDelay);
+      }
     }
   }
 
@@ -222,12 +162,12 @@ const App = () => {
     contact.emails = contact.emails && contact.emails.filter(email => email !== emailToRemove);
     setSelectedContact(contact);
     setIsEdited(true);
-    updateToastMessage(`${emailToRemove} has been removed temporarily. To make this a permanent change, click on Save.`);
+    updateToastMessage(`${emailToRemove} has been removed temporarily. To make this a permanent change, press the Save button.`);
   }
 
   const handleFirstNameUpdate = (firstName: string): void => {
     const contact = { ...selectedContact } as Contact; 
-    contact.firstName = firstName;
+    contact.firstName = toUpperFirstLetter(firstName);
     updateEditingStatus(contact);
     setSelectedContact(contact);
     verifyEditingErrors(contact);
@@ -235,7 +175,7 @@ const App = () => {
 
   const handleLastNameUpdate = (lastName: string): void => {
     const contact = { ...selectedContact } as Contact; 
-    contact.lastName = lastName;
+    contact.lastName = toUpperFirstLetter(lastName);
     updateEditingStatus(contact);
     setSelectedContact(contact);
     verifyEditingErrors(contact);
@@ -266,44 +206,58 @@ const App = () => {
 
   const verifyEditingErrors = (contact: Contact): void => {
     let hasErrors = false;
+    let errorMessages: string[] = [];
 
     if(selectedContact !== null  && 
       !fieldsConfig.firstName.regex.test(contact.firstName)) {  
+        if(selectedContactIndex !== null) {
+          errorMessages.push('First name is not valid.');
+        }        
       hasErrors = true;
     } 
 
     if(selectedContact !== null  && 
       !fieldsConfig.lastName.regex.test(contact.lastName)) {  
+        if(selectedContactIndex !== null) {
+          errorMessages.push('Last name is not valid.');
+        }        
         hasErrors = true;
     } 
 
     contact.emails.forEach(email => {
       if(!fieldsConfig.email.regex.test(email)) {
+        if(selectedContactIndex !== null) {
+          errorMessages.push(`"${email}" is not valid.`);
+        }        
         hasErrors = true;
       }
     });
+
+    if(hasErrors) {
+      updateToastMessage(errorMessages.join(' '));
+    }    
 
     setHasError(hasErrors);
   }
 
   // Create/Update Contact
   const addNewContactToPopulatedList = (newContact: Contact):void => {
-    const contactList: Contact[] = contacts ? [...contacts] : [];
+    const contactList: Contact[] = contacts ? getObjectCopy(contacts) : [];
     const index = contacts ? contacts.length : 0;
     newContact.id = getUniqueId();
     contactList.push(newContact);
 
-    updateContactList(contactList);    
+    updateContactList(sortObjectByFirstNameAsc(contactList));    
     switchSelectedContact(newContact, index);
-    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been saved.`);
+    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been added to your contacts.`);
   }
 
   const addNewContactToEmptyList = (newContact: Contact):void => {
     newContact.id = getUniqueId();
 
-    updateContactList([newContact]);
+    updateContactList(sortObjectByFirstNameAsc([newContact]));
     switchSelectedContact(newContact, 0);
-    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been updated.`);
+    updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been added to your contacts.`);
   }
 
   const updateExistingContact = (newContact: Contact): void => {
@@ -331,7 +285,7 @@ const App = () => {
   return (
     <div className="App">
       <header>
-        <h1>
+        <h1 className={hasError ? 'color-bg-danger' : ''}>
           <div>
             <img src={IconPeople} alt='Icon of People' />
             Moisés Contacts
@@ -341,6 +295,7 @@ const App = () => {
       <main>
         <Contacts 
           contacts={contacts} 
+          hasErrors={hasError}
           onClickClearDetails={clearDetails}
           onClickOpenDetails={onClickOpenDetails}
           selectedContactId={selectedContact?.id}
