@@ -7,6 +7,6 @@ In this project I am only using the `create-react-app` built-in features.  As yo
 
 At its core, I believe this app accomplishes its goal. There's definitely room for improvements and expansion. For now, I'm not planning on expanding it, but I might work on adding unit tests. 
 
-I encourage you to try this React Sample Contact List app on any device including: 4K screens, laptops, tablets, and smartphones. If you find a bug or something off on any of your devices, please let me know.
+I encourage you to try this React Sample Contact List app on any device including 4K screens, laptops, tablets, and smartphones. If you find a bug or something off on any of your devices, please let me know.
 
 ### [Demo](https://moises-samples-react-contacts.web.app)
