@@ -1,6 +1,6 @@
 import React, { FunctionComponent, FormEvent, useEffect, useState } from "react";
 import "./Details.scss";
-import IconAdd from "../../Assets/img/icon/add-icon.svg";
+import IconAdd from "../../Assets/img/icon/icon-add-contact.png";
 import IconDeleteInputField from '../../Assets/img/icon/icon-delete.svg';
 import { Contact } from '../../types';
 import { fieldsConfig } from '../../config';

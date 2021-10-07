@@ -86,21 +86,21 @@ const App = () => {
           const newContactList = [ ...contacts ];
           newContactList.splice(selectedContactIndex, 1);
           setcontacts(newContactList);  
-          setSelectedContact(null);
           setToastNotification({
               id: getUniqueId(), 
               message: `${fullName} has been removed from your contacts.`
           });
+          clearDetails();
         }, detailsSlideDelay);
       } else {
         const newContactList = [ ...contacts ];
         newContactList.splice(selectedContactIndex, 1);
         setcontacts(newContactList);    
-        setSelectedContact(null);
         setToastNotification({
             id: getUniqueId(), 
             message: `${fullName} has been removed from your contacts.`
         });
+        clearDetails();
       }
     }
   }
@@ -243,11 +243,12 @@ const App = () => {
   // Create/Update Contact
   const addNewContactToPopulatedList = (newContact: Contact):void => {
     const contactList: Contact[] = contacts ? getObjectCopy(contacts) : [];
-    const index = contacts ? contacts.length : 0;
     newContact.id = getUniqueId();
     contactList.push(newContact);
+    const sortedContacts = sortObjectByFirstNameAsc(contactList);
+    const index = sortedContacts.findIndex(contactObj => contactObj.id === newContact.id);
 
-    updateContactList(sortObjectByFirstNameAsc(contactList));    
+    updateContactList(sortedContacts);  
     switchSelectedContact(newContact, index);
     updateToastMessage(`${newContact.firstName} ${newContact.lastName} has been added to your contacts.`);
   }
