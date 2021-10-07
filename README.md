@@ -1,4 +1,4 @@
-# React Sample Contact List
+# React Sample Contact List App
 
 ## Description
 This is a personal React sample project (Contact List) I started working on in my own spare time to illustrate some of my capabilities with React, TypeScript, JavaScript, HTML, and CSS. One of the main goals of this sample project is to perform CRUD (Create Read Update Delete) operations on a friendly responsive user interface.  
@@ -9,4 +9,4 @@ At its core, I believe this app accomplishes its goal. There's definitely room f
 
 I encourage you to try this React Sample Contact List app on any device including: 4K screens, laptops, tablets, and smartphones. If you find a bug or something off on any of your devices, please let me know.
 
-### [Demo](moises-samples-react-contacts.web.app)
+### [Demo](https://moises-samples-react-contacts.web.app)
