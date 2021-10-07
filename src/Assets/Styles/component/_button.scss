@@ -38,6 +38,12 @@ button.btn-clear {
   @extend %button-danger;
 }
 
+@media screen and (max-width: $viewport-md) {
+  .btn-inner-visible-hover button {
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: $viewport-md-md) {
   button {
     font-size: 1rem;
@@ -52,9 +58,5 @@ button.btn-clear {
 
   button.mar-none {
     padding: 0;
-  }
-
-  .btn-inner-visible-hover button {
-    opacity: 1;
   }
 }

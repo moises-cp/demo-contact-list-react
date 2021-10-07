@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import "./Contacts.scss";
-import IconAddContact from "../../Assets/img/icon/add-icon.svg";
+import IconAddContact from "../../Assets/img/icon/icon-add-contact.png";
 
 import { ContactList, Contact } from '../../types';
 

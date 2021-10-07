@@ -119,8 +119,8 @@
 
   @media screen and (max-width: $viewport-md-md) {
     grid-column: 1 / 5;
-    height: auto;
-    padding: 1rem;
+    min-height: 100%;
+    padding: 1rem 1rem 100px;
     position: absolute;
     top: 0;
     transition: left .7s ease-in-out;
