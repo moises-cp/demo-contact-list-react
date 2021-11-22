@@ -284,16 +284,20 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <header>
-        <h1 className={hasError ? 'color-bg-danger' : ''}>
-          <div>
+    <div className="min-h-screen">
+      <header className="flex bg-blue-500 items-center py-2">
+          <div className="flex items-center pl-4 w-2/6">
             <img src={IconPeople} alt='Icon of People' />
-            Moisés Contacts
-          </div>          
-        </h1>        
+            <span className="ml-8 text-white">Moisés Contacts</span>
+          </div>  
+
+          <div className="w-2/6">
+            <input className="outline-none px-2 py-1 rounded text-gray-700 w-full" type="search" placeholder="Search Contact" />
+          </div>   
+
+          <div className="w-2/6"></div>            
       </header>
-      <main>
+      <main className="flex">
         <Contacts 
           contacts={contacts} 
           hasErrors={hasError}
@@ -302,7 +306,7 @@ const App = () => {
           selectedContactId={selectedContact?.id}
           switchSelectedContact={switchSelectedContact}
         />
-        <Details  
+        {/* <Details  
           hasErrors={hasError}
           isEdited={isEdited}
           isOpenDetails={isOpenDetails}
@@ -314,18 +318,18 @@ const App = () => {
           selectedContact={selectedContact}
           updateFirstName={handleFirstNameUpdate}
           updateLastName={handleLastNameUpdate}
-          />
-        <ToastNotification 
+          /> */}
+        {/* <ToastNotification 
           id={toastNotification ? toastNotification.id : 0}
           message={toastNotification ? toastNotification.message : ''}
-        />
-        {alertIsVisible &&
+        /> */}
+        {/* {alertIsVisible &&
           <AlertNotification 
             closeAlert={closeAlert}
             questionForUser={alertQuestion}
             proceedFuntions={alertProceedFunctions}
           />
-        }
+        } */}
       </main>
     </div>
   );
