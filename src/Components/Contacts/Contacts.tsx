@@ -1,7 +1,4 @@
 import React, { FunctionComponent } from "react";
-import "./Contacts.scss";
-import IconAddContact from "../../Assets/img/icon/icon-add-contact.png";
-
 import { ContactList, Contact } from '../../types';
 
 interface Props {
@@ -28,35 +25,38 @@ const Contacts: FunctionComponent<Props> = ({
   }
 
   return (
-    <div className="Contacts">
+    <div className="w-full">
 
-      <div className="Contacts-header">
-        <h2 className="Contacts-header__title">Contacts</h2>
+      <header className="bg-blue-50 mb-4 px-4 py-2 w-full">        
         <button 
-          className='Contacts-header__btn-add'
           onClick={onClickAddNewContact}>
-          <img 
-            alt="Add Contact" 
-            className="Contacts-header__icon-add"
-            src={IconAddContact} />
+            Add Contact
         </button>        
-      </div>
+      </header>
 
-      <ul className='Contacts-list'>
+      <div className="gap-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-8">
         {contacts && contacts.length > 0 && contacts.map((contact, index) => {
-          const styleActive = contact.id === selectedContactId && !hasErrors ? 'active' : '';
-          const styleHasError = contact.id === selectedContactId && hasErrors ? 'color-bg-danger color-txt-primary' : '';
-
           return(
-            <li 
-              className={`${styleActive} ${styleHasError}`}
+            <article
+              className="border border-gray-100 h-80 p-4 rounded shadow-lg"
               key={contact.id}
               onClick={() => switchSelectedContact(contact, index)} >
-              {contact.firstName} {contact.lastName}
-            </li>
+
+              <figure className="h-40 mb-1">
+                <img alt={`Profile ${contact.firstName} ${contact.lastName}`} className="h-36 max-h-full block mx-auto rounded-full w-36" src={`/img/${contact.profileImage}`}  />
+              </figure>
+
+              <p className="text-center">
+                {contact.firstName} {contact.lastName}
+              </p>
+              <p className="text-center text-gray-400 text-sm">
+                Civil Engineer
+              </p>
+              
+            </article>
           )
         })}
-      </ul>
+</div>
 
     </div>
   );
