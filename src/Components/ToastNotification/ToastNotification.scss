@@ -1,56 +1,56 @@
-@import '../../Assets/styles/base/base';
-@import '../../Assets/Styles/component/card';
+// @import '../../Assets/styles/base/base';
+// @import '../../Assets/Styles/component/card';
 
-.toast-msg {
-  @extend %card;
-  @extend %font-small-md;
-  background-color: $color-primary;
-  border: 1px solid $color-secondary;
-  bottom: -10%;
-  left: 50%;
-  position: fixed;
-  transform: translateX(-50%);
-  width: 600px;
-  transition: bottom 0.2s ease-in-out;
+// .toast-msg {
+//   @extend %card;
+//   @extend %font-small-md;
+//   background-color: $color-primary;
+//   border: 1px solid $color-secondary;
+//   bottom: -10%;
+//   left: 50%;
+//   position: fixed;
+//   transform: translateX(-50%);
+//   width: 600px;
+//   transition: bottom 0.2s ease-in-out;
 
-  > .close {
-    padding: 0 1.5rem;
-    text-align: right;
-  }
+//   > .close {
+//     padding: 0 1.5rem;
+//     text-align: right;
+//   }
 
-  > .close > span { 
-    cursor: pointer;
-  }
+//   > .close > span { 
+//     cursor: pointer;
+//   }
 
-  &.active {
-    bottom: 0%;
-  }
+//   &.active {
+//     bottom: 0%;
+//   }
 
-  > ul {
-    padding-inline-start: 0;
-  }
+//   > ul {
+//     padding-inline-start: 0;
+//   }
 
-  > ul > li {
-    color: $color-text-regular;
-    list-style: none;
-    padding: 0.2rem 1rem;
-  }
+//   > ul > li {
+//     color: $color-text-regular;
+//     list-style: none;
+//     padding: 0.2rem 1rem;
+//   }
 
-  > ul > li:first-child {
-    padding-top: 0rem;
-  }
+//   > ul > li:first-child {
+//     padding-top: 0rem;
+//   }
 
-  @media screen and (max-width: $viewport-md-md) {
-    width: 80%;
-  }
+//   @media screen and (max-width: $viewport-md-md) {
+//     width: 80%;
+//   }
 
-  @media screen and (max-width: $viewport-sm) {
-    border: 1px solid $color-primary;
-    border-top: 1px solid $color-secondary;
-    width: 100%;
+//   @media screen and (max-width: $viewport-sm) {
+//     border: 1px solid $color-primary;
+//     border-top: 1px solid $color-secondary;
+//     width: 100%;
 
-    & > ul {
-      margin: 5px 0;
-    }
-  }
-}
+//     & > ul {
+//       margin: 5px 0;
+//     }
+//   }
+// }

@@ -1,91 +1,91 @@
-@import "./Assets/Styles/base/base";
+// @import "./Assets/Styles/base/base";
 
-// Components
-@import './Assets/Styles/component/button';
-@import './Assets/Styles/component/icon';
-@import './Assets/Styles/component/input';
-@import './Assets/Styles/component/root';
+// // Components
+// @import './Assets/Styles/component/button';
+// @import './Assets/Styles/component/icon';
+// @import './Assets/Styles/component/input';
+// @import './Assets/Styles/component/root';
 
-// Util
-@import './Assets/Styles/util/color-util';
-@import './Assets/Styles/util/cursor-util';
-@import './Assets/Styles/util/positioning-util';
-@import './Assets/Styles/util/spacing-util';
-@import './Assets/Styles/util/typography-util';
-@import './Assets/Styles/util/visibility-util';
+// // Util
+// @import './Assets/Styles/util/color-util';
+// @import './Assets/Styles/util/cursor-util';
+// @import './Assets/Styles/util/positioning-util';
+// @import './Assets/Styles/util/spacing-util';
+// @import './Assets/Styles/util/typography-util';
+// @import './Assets/Styles/util/visibility-util';
 
 * {
   box-sizing: border-box;
 }
 
-.App {
-  background-color: $color-primary;
-  box-shadow: 0 5px 10px -3px rgba(14, 13, 26, 0.12),
-    0 3px 16px 2px rgba(7, 48, 114, 0.12), 0 8px 12px 1px rgba(34, 0, 51, 0.04);
-  line-height: 1.5;
-  margin: auto;
-  max-height: 100vh;
-  position: relative;
-  min-height: 80vh;
-  width: 60em;
-}
+// .App {
+//   background-color: $color-primary;
+//   box-shadow: 0 5px 10px -3px rgba(14, 13, 26, 0.12),
+//     0 3px 16px 2px rgba(7, 48, 114, 0.12), 0 8px 12px 1px rgba(34, 0, 51, 0.04);
+//   line-height: 1.5;
+//   margin: auto;
+//   max-height: 100vh;
+//   position: relative;
+//   min-height: 80vh;
+//   width: 60em;
+// }
 
-header {
-  background-color: $color-secondary;
-  color: $color-primary;
-  text-align: center;
-}
+// header {
+//   background-color: $color-secondary;
+//   color: $color-primary;
+//   text-align: center;
+// }
 
-h1 {
-  font-size: 1.5rem;
-  margin: 0;
-  padding: 0.8rem 0;
-}
+// h1 {
+//   font-size: 1.5rem;
+//   margin: 0;
+//   padding: 0.8rem 0;
+// }
 
-h1 > div {
-  align-items: center;
-  display: flex;
-  margin: 0 auto;
-  width: max-content;
-}
+// h1 > div {
+//   align-items: center;
+//   display: flex;
+//   margin: 0 auto;
+//   width: max-content;
+// }
 
-h1 > div > img {
-  max-width: 40px;
-  margin-right: 1rem;
-}
+// h1 > div > img {
+//   max-width: 40px;
+//   margin-right: 1rem;
+// }
 
-main {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  height: 80vh;
-  overflow-x: hidden;
-  position: relative;
-}
+// main {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   height: 80vh;
+//   overflow-x: hidden;
+//   position: relative;
+// }
 
-a {
-  color: $color-text-regular;
-  text-decoration: none;
-}
+// a {
+//   color: $color-text-regular;
+//   text-decoration: none;
+// }
 
-@media screen and (max-width: $viewport-lg-sm) {
-  .App {
-    height: 100vh;
-    width: 100%;
-  }
+// @media screen and (max-width: $viewport-lg-sm) {
+//   .App {
+//     height: 100vh;
+//     width: 100%;
+//   }
 
-  main {
-    height: calc(100vh - 62px);
-  }
-}
+//   main {
+//     height: calc(100vh - 62px);
+//   }
+// }
 
-@media screen and (max-width: $viewport-md-md) {
-  .App {
-    display: block;
-  }
-}
+// @media screen and (max-width: $viewport-md-md) {
+//   .App {
+//     display: block;
+//   }
+// }
 
-@media screen and (max-width: $viewport-sm) {
-  .App {
-    padding-bottom: 250px;
-  }
-}
+// @media screen and (max-width: $viewport-sm) {
+//   .App {
+//     padding-bottom: 250px;
+//   }
+// }
