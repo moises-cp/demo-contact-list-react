@@ -10,3 +10,10 @@ At its core, I believe this app accomplishes its goal. There's definitely room f
 I encourage you to try this React Sample Contact List app on any device including 4K screens, laptops, tablets, and smartphones. If you find a bug or something off on any of your devices, please let me know.
 
 ### [Demo](https://moises-samples-react-contacts.web.app)
+
+
+
+# Setup
+
+## Tailwind CSS
+- Instructions: [Tailwind CSS](https://tailwindcss.com/docs/guides/create-react-app)
