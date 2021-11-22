@@ -3,6 +3,7 @@ export interface Contact {
   firstName: string;
   lastName: string;
   emails: string[];
+  profileImage: string
 }
 
 export type ContactList = Contact[];
