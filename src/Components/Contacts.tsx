@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { ContactList, Contact } from '../types';
+import React, { FunctionComponent } from 'react'
+import { ContactList, Contact } from '../types'
 
 interface Props {
-  contacts: ContactList | null;
-  hasErrors: boolean;
-  onClickClearDetails: () => void;
-  onClickOpenDetails: () => void;
-  selectedContactId?: number;
-  switchSelectedContact: (contact: Contact, index: number) => void;
+  contacts: ContactList | null
+  hasErrors: boolean
+  onClickClearDetails: () => void
+  onClickOpenDetails: () => void
+  selectedContactId?: number
+  switchSelectedContact: (contact: Contact, index: number) => void
 }
 
 const Contacts: FunctionComponent<Props> = ({
@@ -19,9 +19,9 @@ const Contacts: FunctionComponent<Props> = ({
   switchSelectedContact,
 }) => {
   const onClickAddNewContact = (): void => {
-    onClickClearDetails();
-    onClickOpenDetails();
-  };
+    onClickClearDetails()
+    onClickOpenDetails()
+  }
 
   return (
     <div className="w-full">
@@ -69,11 +69,11 @@ const Contacts: FunctionComponent<Props> = ({
                   </li>
                 </ul>
               </article>
-            );
+            )
           })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Contacts;
+export default Contacts
