@@ -35,4 +35,15 @@ export const fieldsConfig = {
     regex: /^[a-zA-Z- 'áéíóúñüÁÉÍÓÚÑÜ]{2,40}$/,
     type: 'string',
   },
-};
+}
+
+export const socialIcon = {
+  email: 'icon-email-v5.jpg',
+  facebook: 'logo-facebook-f_logo_RGB-Blue_58.png',
+  github: 'logo-GitHub-Mark-32px.png',
+  linkedin: 'logo-linkedin-In-Blue-40.png',
+  phone: 'icon-phone-v1.jpg',
+  twitter: 'logo-Twitter-social-icons-circle-blue.svg',
+  website: '',
+  youtube: 'logo-youtube_social_icon_red.png',
+}
