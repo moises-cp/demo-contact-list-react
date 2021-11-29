@@ -1,5 +1,5 @@
-import { ContactList } from '../types';
-import { getUniqueId } from '../util';
+import { ContactList } from '../types'
+import { getUniqueId } from '../util'
 
 export const defaultContactList: ContactList = [
   {
@@ -8,6 +8,16 @@ export const defaultContactList: ContactList = [
     lastName: 'Lopez',
     emails: ['jennifer@jlo.com', 'lopez2@jlo2.com'],
     profileImage: 'pexels-jorge-fakhouri-filho-2616958-orig (2).jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
   {
     id: getUniqueId(),
@@ -15,6 +25,17 @@ export const defaultContactList: ContactList = [
     lastName: 'Quiñones',
     emails: ['denise@quinones.net'],
     profileImage: 'pexels-redwolf-7439890-orig (2).jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
   {
     id: getUniqueId(),
@@ -28,6 +49,17 @@ export const defaultContactList: ContactList = [
       'joaquin5@phoenix5.mob',
     ],
     profileImage: 'person-profile-pexels-jorge-fakhouri-filho-2616958.jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
   {
     id: getUniqueId(),
@@ -39,6 +71,17 @@ export const defaultContactList: ContactList = [
       'deltoro3@Benicio3.com',
     ],
     profileImage: 'pexels-victor-l-2790437 (2).jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
   {
     id: getUniqueId(),
@@ -50,6 +93,17 @@ export const defaultContactList: ContactList = [
       'dawson3@rosario3.com',
     ],
     profileImage: 'pexels-marcelo-chagas-3442135 (2).jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
   {
     id: getUniqueId(),
@@ -63,5 +117,16 @@ export const defaultContactList: ContactList = [
       'guzman@luis5.com',
     ],
     profileImage: 'pexels-lucxama-sylvain-2766224 (2).jpg',
+    url: {
+      emailPrimary: 'username@company.com',
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      github: 'https://github.com/moises-cp/demo-contact-list-react',
+      linkedin: 'https://www.linkedin.com/',
+      phonePrimary: '000-000-0000',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      website: 'https://www.mozilla.org/',
+    },
   },
-];
+]
