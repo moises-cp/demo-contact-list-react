@@ -1,46 +1,31 @@
-import React, { FunctionComponent } from 'react'
-import { AnchorUrlType, ContactList, Contact } from '../../types'
+import React, { FunctionComponent, ReactElement } from 'react'
+import { ContactList } from '../../types'
 import { socialIcon } from '../../config'
 import SocialIcon from './SocialIcon'
 
 interface Props {
+  children: ReactElement
   contacts: ContactList | null
-  hasErrors: boolean
-  onClickClearDetails: () => void
-  onClickOpenDetails: () => void
-  selectedContactId?: number
-  switchSelectedContact: (contact: Contact, index: number) => void
 }
 
-const Contacts: FunctionComponent<Props> = ({
-  contacts,
-  hasErrors,
-  onClickClearDetails,
-  onClickOpenDetails,
-  selectedContactId,
-  switchSelectedContact,
-}) => {
-  const onClickAddNewContact = (): void => {
-    onClickClearDetails()
-    onClickOpenDetails()
-  }
-
+const Contacts: FunctionComponent<Props> = ({ children, contacts }) => {
   return (
     <div className="w-full">
-      <header className="bg-blue-50 mb-4 px-4 py-2 w-full">
-        <button onClick={onClickAddNewContact}>Add Contact</button>
-      </header>
-
       <div className="gap-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-8">
         {contacts &&
           contacts.length &&
           contacts.map((contact, index) => {
             return (
               <article
-                className="border border-gray-100 hover:shadow-2xl p-4 rounded shadow-lg"
+                className="border border-gray-100 hover:shadow-2xl p-4 relative rounded shadow-lg"
                 key={contact.id}
-                onClick={() => switchSelectedContact(contact, index)}
               >
+                {React.Children.map(children, (child) => {
+                  return React.cloneElement(child, {
+                    contactId: contact.id,
+                  })
+                })}
+
                 <figure className="h-40 mb-1">
                   <img
                     alt={`Profile ${contact.firstName} ${contact.lastName}`}
