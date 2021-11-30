@@ -14,7 +14,7 @@ interface Url {
 }
 
 export interface Contact {
-  id: number
+  id: string
   firstName: string
   lastName: string
   emails: string[]
@@ -27,4 +27,11 @@ export type ContactList = Contact[]
 export interface NotificationType {
   id: number
   message: string
+}
+
+export interface AlertConfig {
+  id: string
+  message: string
+  onCancel: () => void
+  onConfirm: () => void
 }
