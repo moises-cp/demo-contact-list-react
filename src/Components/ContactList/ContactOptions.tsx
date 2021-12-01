@@ -8,14 +8,20 @@ interface Props {
 const ContactOptions: FunctionComponent<Props> = ({ contactId, onDelete }) => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
-  const onClickOptions = (): void => {
+  const toggleOptions = (): void => {
     setShowOptions(!showOptions)
   }
 
+  const onBlur = (e: React.FocusEvent<HTMLDivElement, Element>) => {
+    if (!e.relatedTarget) {
+      toggleOptions()
+    }
+  }
+
   return (
-    <div className="absolute right-1.5 top-0">
+    <div className="absolute right-1.5 top-0" onBlur={(e) => onBlur(e)}>
       <div className="text-right">
-        <button className="p-2" onClick={onClickOptions}>
+        <button className="p-2" onClick={toggleOptions}>
           . . .
         </button>
       </div>
@@ -25,7 +31,14 @@ const ContactOptions: FunctionComponent<Props> = ({ contactId, onDelete }) => {
             <button>Edit</button>
           </li>
           <li>
-            <button onClick={() => onDelete(contactId)}>Delete</button>
+            <button
+              onClick={() => {
+                onDelete(contactId)
+                toggleOptions()
+              }}
+            >
+              Delete
+            </button>
           </li>
         </ul>
       )}
