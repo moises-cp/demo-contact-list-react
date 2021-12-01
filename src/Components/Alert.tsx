@@ -1,7 +1,6 @@
 import { Fragment, FunctionComponent } from 'react'
 import Card from '../layout/CardLayout'
 import Button from '../layout/ButtonLayout'
-// import './AlertNotification.scss';
 
 interface Props {
   visible: boolean
